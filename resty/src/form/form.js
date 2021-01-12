@@ -28,8 +28,10 @@ class Form extends React.Component {
 
         <form>
           <div class="urlInput">
-            <label>URL:</label>
+            <label>
+              URL:
             <input onChange={this.handleURL}></input>
+            </label>
           </div>
 
           <div class="inner">
