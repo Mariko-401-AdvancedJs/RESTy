@@ -4,37 +4,53 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      choice: '',
+      display: false,
+      method: '',
       url: '',
     }
   }
 
-  handleChoice = e => {
-    let newChoice = e.target.value;
-    this.setState({ choice: newChoice });
+  handleSubmit = e => {
+    e.preventDefault();
+    let url = e.target.url.value;
+    this.setState({ url }); //shorthand if key and value have the same name!
+    if (this.state.method) { this.setState({ display: true }) };
+    this.apiResults(url);
   }
 
-  handleURL = e => {
-    console.log(e.target.value)
-    let newURL = e.target.value;
-    this.setState({ url: newURL });
+  handleChoice = e => {
+    let method = e.target.value;
+    this.setState({ method });
+    if (this.state.url) { this.setState({ display: true }) };
+  }
+
+  apiResults = async (url) => {
+    // console.log('URL FROM HANDLE SUBMIT:', url);
+    const data = await fetch(url, { method: 'GET', mode: 'cors' })
+      .then(res => {
+        if (res.status !== 200) return;
+        return res.json();
+      });
+    // console.log('data from api:', data);
+    this.props.update(data);
   }
 
   render() {
     return (
 
+      <div class="formDiv">
 
-      <div class="outer">
+        <form onSubmit={this.handleSubmit}>
 
-        <form>
           <div class="urlInput">
             <label>
               URL:
-            <input onChange={this.handleURL}></input>
+            <input placeholder="URL" name="url"></input>
+              <button type="submit">Submit</button>
             </label>
           </div>
 
-          <div class="inner">
+          <div class="buttonDiv">
             <fieldset>
               <input type="radio" value="get" name="method" onChange={this.handleChoice} />GET
               <input type="radio" value="post" name="method" onChange={this.handleChoice} />POST
@@ -46,12 +62,14 @@ class Form extends React.Component {
         </form >
 
 
-
-        <div>
-          <p>{this.state.url}</p>
-          <p>{this.state.choice}</p>
-        </div>
+        {!this.state.display ? "" :
+          <div>
+            <p>{this.state.url}</p>
+            <p>{this.state.method}</p>
+          </div>
+        }
       </div>
+
     )
   }
 }
