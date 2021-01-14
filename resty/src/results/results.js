@@ -7,13 +7,13 @@ class Results extends React.Component {
   render() {
     console.log('props in results:', this.props.results);
     return (
-      <div id="results" >
 
+      <div id="results" >
         Count: {this.props.count}
         <ReactJson src={this.props.results} />
         {/* <p>  "pretty" results body </p> */}
-
       </div >
+
     )
   }
 }

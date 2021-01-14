@@ -26,7 +26,7 @@ class Form extends React.Component {
 
   apiResults = async (url) => {
     // console.log('URL FROM HANDLE SUBMIT:', url);
-    const data = await fetch(url, { method: 'GET', mode: 'cors' })
+    const data = await fetch(url, { method: this.state.method || 'GET', mode: 'cors' })
       .then(res => {
         if (res.status !== 200) return;
         return res.json();

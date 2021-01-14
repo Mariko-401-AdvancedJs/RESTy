@@ -3,6 +3,7 @@ import Header from './header/header';
 import Footer from './footer/footer';
 import Form from './form/form';
 import Results from './results/results';
+import History from './history/history';
 import './app.scss';
 
 class App extends React.Component {
@@ -11,7 +12,8 @@ class App extends React.Component {
     this.state = {
       count: '',
       resultsArray: [],
-      headers: {}
+      headers: {},
+      history: {}
     }
   }
 
@@ -34,6 +36,10 @@ class App extends React.Component {
         <Results
           count={this.state.count}
           results={this.state.resultsArray}
+        />
+
+        <History
+          history={this.state.history}
         />
 
         <Footer></Footer>
