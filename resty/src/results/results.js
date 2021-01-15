@@ -5,7 +5,6 @@ import App from '../App';
 
 class Results extends React.Component {
   render() {
-    console.log('props in results:', this.props.results);
     return (
 
       <div id="results" >

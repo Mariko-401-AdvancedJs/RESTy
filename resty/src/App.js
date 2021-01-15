@@ -13,7 +13,8 @@ class App extends React.Component {
       count: '',
       resultsArray: [],
       headers: {},
-      history: {}
+      history: {},
+      storage: {}
     }
   }
 
@@ -22,10 +23,12 @@ class App extends React.Component {
     this.setState({ count: data.count })
   }
   updateHeaders = (headers) => {
-    console.log('headers?', headers)
     this.setState({ headers })
   }
-
+  updateStorage = (storage) => {
+    console.log('res???', storage)
+    this.setState({ storage })
+  }
 
   render() {
     return (
@@ -35,6 +38,7 @@ class App extends React.Component {
         <Form
           update={this.updateState}
           headers={this.updateHeaders}
+          query={this.updateStorage}
         />
 
         <Results
