@@ -28,17 +28,28 @@ class Form extends React.Component {
     // console.log('URL FROM HANDLE SUBMIT:', url);
     const data = await fetch(url, { method: this.state.method || 'GET', mode: 'cors' })
       .then(res => {
+        let headers = {};
+        for (let pair of res.headers.entries()) {
+          headers[pair[0]] = pair[1]
+        }
+
+        console.log('HEADERS:', headers);
+        this.props.headers(headers);
+
         if (res.status !== 200) return;
         return res.json();
-      });
-    // console.log('data from api:', data);
+      })
     this.props.update(data);
   }
+
+  //put handler
+  //post handler
+  //delete handler
 
   render() {
     return (
 
-      <div class="formDiv">
+      <div class="formDiv" >
 
         <form onSubmit={this.handleSubmit}>
 
