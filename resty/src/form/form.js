@@ -7,15 +7,28 @@ class Form extends React.Component {
       display: false,
       method: '',
       url: '',
+      body: '',
     }
   }
 
   handleSubmit = e => {
     e.preventDefault();
     let url = e.target.url.value;
+    let body = e.target.body.value;
     this.setState({ url }); //shorthand if key and value have the same name!
-    if (this.state.method) { this.setState({ display: true }) };
-    this.apiResults(url);
+    this.setState({ body });
+    if (this.state.method && this.state.body) { this.setState({ display: true }) };
+    if (this.state.method === 'put') {
+      this.putReq(url)
+    }
+    if (this.state.method === 'post') {
+      this.postReq(url)
+    }
+    if (this.state.method === 'delete') {
+      this.deleteReq(url)
+    } else {
+      this.apiResults(url);
+    }
   }
 
   handleChoice = e => {
@@ -24,16 +37,42 @@ class Form extends React.Component {
     if (this.state.url) { this.setState({ display: true }) };
   }
 
+
+  putReq = async (url) => {
+    const data = await fetch(url, { method: 'PUT', mode: 'cors' })
+      .then(res => {
+        console.log('put query???___', res);
+        if (res.status !== 200) return;
+        return res.json();
+      })
+    this.props.query(data);
+  }
+  postReq = async (url) => {
+    const data = await fetch(url, { method: 'POST', mode: 'cors' })
+      .then(res => {
+        console.log('post query???___', res);
+        if (res.status !== 200) return;
+        return res.json();
+      })
+    this.props.query(data);
+  }
+  deleteReq = async (url) => {
+    const data = await fetch(url, { method: 'DELETE', mode: 'cors' })
+      .then(res => {
+        console.log('delete query???___', res);
+        if (res.status !== 200) return;
+        return res.json();
+      })
+    this.props.query(data);
+  }
+
   apiResults = async (url) => {
-    // console.log('URL FROM HANDLE SUBMIT:', url);
     const data = await fetch(url, { method: this.state.method || 'GET', mode: 'cors' })
       .then(res => {
         let headers = {};
         for (let pair of res.headers.entries()) {
           headers[pair[0]] = pair[1]
         }
-
-        console.log('HEADERS:', headers);
         this.props.headers(headers);
 
         if (res.status !== 200) return;
@@ -41,10 +80,6 @@ class Form extends React.Component {
       })
     this.props.update(data);
   }
-
-  //put handler
-  //post handler
-  //delete handler
 
   render() {
     return (
@@ -58,6 +93,13 @@ class Form extends React.Component {
               URL:
             <input placeholder="URL" name="url"></input>
               <button type="submit">Submit</button>
+            </label>
+          </div>
+
+          <div class="urlInput">
+            <label>
+              Request Body:
+            <textarea id="reqBody" name="body"></textarea>
             </label>
           </div>
 
