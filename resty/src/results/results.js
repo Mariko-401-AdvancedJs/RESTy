@@ -10,8 +10,8 @@ class Results extends React.Component {
 
       <div id="results" >
         Count: {this.props.count}
+        <ReactJson src={this.props.headers} />
         <ReactJson src={this.props.results} />
-        {/* <p>  "pretty" results body </p> */}
       </div >
 
     )

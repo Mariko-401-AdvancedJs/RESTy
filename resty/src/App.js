@@ -17,12 +17,15 @@ class App extends React.Component {
     }
   }
 
-  updateState = (info) => {
-    console.log('results in update state:', info.headers);
-    this.setState({ resultsArray: info.results })
-    this.setState({ count: info.count })
-    console.log('RESULTS AFTER', this.state.resultsArray, 'COUNT AFTER', this.state.count);
+  updateState = (data) => {
+    this.setState({ resultsArray: data.results })
+    this.setState({ count: data.count })
   }
+  updateHeaders = (headers) => {
+    console.log('headers?', headers)
+    this.setState({ headers })
+  }
+
 
   render() {
     return (
@@ -31,16 +34,18 @@ class App extends React.Component {
 
         <Form
           update={this.updateState}
+          headers={this.updateHeaders}
         />
 
         <Results
           count={this.state.count}
           results={this.state.resultsArray}
+          headers={this.state.headers}
         />
-
+        {/* 
         <History
           history={this.state.history}
-        />
+        /> */}
 
         <Footer></Footer>
       </>
