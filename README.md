@@ -1,5 +1,18 @@
 # LAB - Props and State
 
+## Project: 29
+
+### Author: Mariko Alvarado
+
+### Links and Resources
+
+[front-end](https://mariko-401-advancedjs.github.io/RESTy/)
+
+#### UML
+![uml](uml29.png)
+
+# LAB - Props and State
+
 ## Project: 27
 
 ### Author: Mariko Alvarado
