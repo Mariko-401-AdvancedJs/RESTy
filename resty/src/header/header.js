@@ -35,7 +35,3 @@ class Header extends React.Component {
   }
 }
 export default Header;
-{/* 
-// Link labeled “Home” that links to ‘/’ and shows the search form/results page
-// Link labeled “History” that links to ‘/history’ and loads the history page
-// Link labeled “Help” that links to ‘/help’ and loads the about us page */}

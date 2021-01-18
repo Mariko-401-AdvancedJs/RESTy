@@ -5,6 +5,7 @@ class History extends React.Component {
   render() {
     return (
       <div>
+        <h2>History</h2>
         <ReactJson src={this.props.queryHistory} />
       </div>
     )

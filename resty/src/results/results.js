@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactJson from 'react-json-view';
-import App from '../App';
 //--force react json install to use react 17??? maybe/
 
 class Results extends React.Component {

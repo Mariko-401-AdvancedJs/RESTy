@@ -32,30 +32,29 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <BrowserRouter>
         <Header />
 
-        <BrowserRouter>
-          <Form
-            update={this.updateState}
-            headers={this.updateHeaders}
-            query={this.updateQueries}
-          />
+        <Form
+          update={this.updateState}
+          headers={this.updateHeaders}
+          query={this.updateQueries}
+        />
 
-          <Results
-            count={this.state.count}
-            results={this.state.resultsArray}
-            headers={this.state.headers}
-          />
+        <Results
+          count={this.state.count}
+          results={this.state.resultsArray}
+          headers={this.state.headers}
+        />
 
-          <History
-            queryHistory={this.state.queries}
-          />
+        <History
+          queryHistory={this.state.queries}
+        />
 
-          <Footer></Footer>
+        <Footer></Footer>
 
-        </BrowserRouter>
-      </>
+      </BrowserRouter>
+
     )
   }
 }
