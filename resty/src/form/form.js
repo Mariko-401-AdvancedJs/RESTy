@@ -26,10 +26,12 @@ class Form extends React.Component {
     }
     if (this.state.method === 'delete') {
       this.deleteReq(url)
-    } else {
+    }
+    if (this.state.method === 'get') {
       this.apiResults(url);
     }
   }
+
 
   handleChoice = e => {
     let method = e.target.value;
@@ -46,15 +48,20 @@ class Form extends React.Component {
         return res.json();
       })
     this.props.query(data);
+
+    localStorage.setItem('putRes', data);
   }
   postReq = async (url) => {
     const data = await fetch(url, { method: 'POST', mode: 'cors' })
       .then(res => {
-        console.log('post query???___', res);
+        // console.log('post query???___', res);
         if (res.status !== 200) return;
         return res.json();
       })
+    console.log('cmon man...', data);
     this.props.query(data);
+
+    localStorage.setItem('postRes', data);
   }
   deleteReq = async (url) => {
     const data = await fetch(url, { method: 'DELETE', mode: 'cors' })
@@ -64,11 +71,14 @@ class Form extends React.Component {
         return res.json();
       })
     this.props.query(data);
+    localStorage.setItem('delRes', data);
   }
 
   apiResults = async (url) => {
-    const data = await fetch(url, { method: this.state.method || 'GET', mode: 'cors' })
+    console.log('getting hit?', url);
+    let data = await fetch(url, { method: 'GET', mode: 'cors' })
       .then(res => {
+
         let headers = {};
         for (let pair of res.headers.entries()) {
           headers[pair[0]] = pair[1]

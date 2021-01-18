@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, MemoryRouter, HashRouter, Link } from 'react-router-dom';
 import Header from './header/header';
 import Footer from './footer/footer';
 import Form from './form/form';
@@ -13,21 +14,20 @@ class App extends React.Component {
       count: '',
       resultsArray: [],
       headers: {},
-      history: {},
-      storage: {}
     }
   }
 
   updateState = (data) => {
-    this.setState({ resultsArray: data.results })
+    // console.log('get from fake api??', data);
+    this.setState({ resultsArray: data })
     this.setState({ count: data.count })
   }
   updateHeaders = (headers) => {
     this.setState({ headers })
   }
-  updateStorage = (storage) => {
-    console.log('res???', storage)
-    this.setState({ storage })
+  updateQueries = (queries) => {
+    // console.log('res???', storage)
+    this.setState({ queries })
   }
 
   render() {
@@ -35,23 +35,26 @@ class App extends React.Component {
       <>
         <Header />
 
-        <Form
-          update={this.updateState}
-          headers={this.updateHeaders}
-          query={this.updateStorage}
-        />
+        <BrowserRouter>
+          <Form
+            update={this.updateState}
+            headers={this.updateHeaders}
+            query={this.updateQueries}
+          />
 
-        <Results
-          count={this.state.count}
-          results={this.state.resultsArray}
-          headers={this.state.headers}
-        />
-        {/* 
-        <History
-          history={this.state.history}
-        /> */}
+          <Results
+            count={this.state.count}
+            results={this.state.resultsArray}
+            headers={this.state.headers}
+          />
 
-        <Footer></Footer>
+          <History
+            queryHistory={this.state.queries}
+          />
+
+          <Footer></Footer>
+
+        </BrowserRouter>
       </>
     )
   }
